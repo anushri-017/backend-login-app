@@ -1,4 +1,4 @@
-const  login =  require('./models/schema');
+const  login =  require('./models/userModel');
 
 function connectdb (arg){
     console.log(login)

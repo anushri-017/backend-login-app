@@ -1,8 +1,7 @@
 const express =require("express");
-const login = require("../models/schema");
 const {check,validationResult} = require('express-validator');
-const database = require('../database');
 const router = express.Router();
+const database = require('../database');
 
 router.post('/',
 [
@@ -21,7 +20,9 @@ function(req,res){
         })
     }
     res.send( 'Saved  to database');
-    console.log(req.body)
+    console.log('Saved to database');
+    console.log(req.body);
     console.log(database.db(req.body))
 })
+
  module.exports = router;

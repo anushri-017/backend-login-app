@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+
 
 mongoose.connect('mongodb://localhost/login-db',{
     useNewUrlParser:true,
@@ -26,7 +27,6 @@ const logSchema = new mongoose.Schema({
     country:{type:String,required:true},
     signupDate:{type:Date,default:Date}
 }) 
-
 logSchema.pre('save',function(next){
     const user = this;
     if(!user.isModified('password')){
@@ -60,6 +60,6 @@ logSchema.methods.comparepassword = function(cnfpassword){
     })
 }
   
-const login = mongoose.model('login',logSchema);
+const  login = mongoose.model('logins',logSchema);
 
 module.exports = login;
