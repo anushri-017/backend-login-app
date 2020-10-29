@@ -1,9 +1,10 @@
 const express = require('express');  
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const getdata = require('./controller/getdata');
-const postdata = require('./controller/createdata');
-const  login = require('./controller/users');
+const veiwallusers = require('./api/veiwalluser');
+const veiwloggeduser = require('./api/userProfile');
+const postdata = require('./api/register');
+const  login = require('./api/loginuser');
 const passport = require("passport");
 
 global.config = require ('./config');
@@ -16,10 +17,10 @@ app.use(passport.initialize());
 
 app.use(cors())
 
-app.use('/signup',postdata)
+app.use('/register',postdata)
 app.use('/login',login)
-app.use('/viewusers',getdata)
-
+app.use('/viewusers',veiwallusers)
+app.use('/loggedinuser',veiwloggeduser)
 
 
 app.listen(port, () => {

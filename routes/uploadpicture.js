@@ -1,6 +1,6 @@
 const  express = require('express');
 const   multer = require("multer");
-const   uuidv4 = require("../node_modules/uuid/dist/v4");
+const   uuidv4 = require("uuid/dist/v4");
 const    router = express.Router();
 
 const DIR = './public/';
