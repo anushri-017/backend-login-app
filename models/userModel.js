@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-
-mongoose.connect('mongodb://localhost/login-db', {
+mongoose.connect('mongodb://localhost/register-login-database', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
@@ -13,28 +12,13 @@ db.once('open', function () {
 });
 
 const logSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    cnfpassword: { type: String, required: true },
+    username: {type: String, required: true, unique: true},
+    password: {type: String,required: true, unique: true},
     email: { type: String, required: true, unique: true },
     country: { type: String, required: true },
-    signupDate: { type: Date, default: Date }
+    signupDate: { type: Date, default: Date },
+    profileImage:{type:String}
 })
-//  logSchema.methods.generateHash =function(password){
-//      return bcrypt.hashSync(password,bcrypt.genSaltSync(8),null);
-//  };
-
-//  logSchema.methods.validPassword = function(password){
-//      return bcrypt.compareSync(password,this.password);
-//  }
 logSchema.pre('save', function (next) {
     const user = this;
     if (!user.isModified('password')) {
@@ -53,21 +37,5 @@ logSchema.pre('save', function (next) {
         })
     })
 })
-logSchema.methods.comparepassword = function (cnfpassword) {
-    const user = this;
-    return new Promise((resolve, reject) => {
-        bcrypt.compare(cnfpassword, user.password, (err, isMatch) => {
-            if (err) {
-                return reject(err)
-            }
-            if (isMatch) {
-                return reject(err)
-            }
-            resolve(true)
-        })
-    })
-}
-
 const login = mongoose.model('logins', logSchema);
-
 module.exports = login;

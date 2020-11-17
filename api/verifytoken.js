@@ -3,9 +3,9 @@ const   router = express.Router();
 const jwt = require('jsonwebtoken')
  
 router.use(function (req, res, next) {
-var token = req.headers['x-access-token'];
-console.log(token);
-if (token) { jwt.verify(token, global.config.secretKey,{
+var jwtoken = req.headers['x-access-token'];
+console.log(jwtoken);
+if (jwtoken) { jwt.verify(jwtoken, global.config.secretKey,{
     algorithm: global.config.algorithm},
      function (err, decoded) {
     if (err) {

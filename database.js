@@ -6,9 +6,9 @@ function connectdb (arg){
  const  logindata = new login({
      username:arg.username,
      password:arg.password,
-     cnfpassword:arg.cnfpassword,
      email:arg.email,
-     country:arg.country
+     country:arg.country,
+     profileImage:arg.profileImage
  })
  
  logindata.save(function(err,data){

@@ -9,27 +9,40 @@ router.post('/', function (req, res) {
         username: req.body.username,
         password: req.body.password
     }
-     
+    console.log(userdata)
     if (userdata.username || userdata.password){
-        login.findOne({username:userdata.username}).then((user)=>{
-        if(!user) return res.status(400).json({msg:"user Does not exists"});
+        login.findOne({username:userdata.username})
+        .then((user)=>{
+        if(!user) 
+        return (
+        res.json({msg:"User does not exists"}),
+        console.log("User  does not exits"))
 
-        bcrypt.compare(password,user.password).then((isMatch) =>{
-            if(!isMatch) return res.status(400).json({msg:"Invalid Password"});
+        bcrypt.compare(userdata.password,user.password)
+        .then((isMatch) =>{
+            if(!isMatch) 
+            return( res.status(400).json({
+                msg:"Invalid Password"} ),
+            console.log("Invalid Password"))
+
             let token = jwt.sign(userdata, global.config.secretKey, {
                 algorithm: global.config.algorithm,
                 expiresIn: '7d'
             });
             res.status(200).json({
-                message: 'Login Successful',
+                msg: 'Login Successful',
                 jwtoken: token
             });
+            console.log("Login Successfull",token)
+        })
+        .catch(err =>{
+            console.log(err)
         })
     })
 }
     else {
             res.status(401).json({
-                message: 'Login Failed',
+                msg: 'Login Failed',
             });
             console.log('login failed');
         }
